@@ -33,6 +33,13 @@ namespace CTRPluginFramework {
 	void GetMessage_p3(void);
 	void GetMessage_p4(void);
 
+    bool PretendoSplash(const Screen &scr)
+    {
+        scr.DrawSysfont("Pretendo patches active!", 20, 20, Color::White);
+        return true; // weiter zeichnen
+    }
+
+
 /*
 Will be called at the start of the plugin to load the language, colors and the dev check
 */
@@ -247,16 +254,21 @@ prevent any issues with freezing of the plugin
 
 		Process::exceptionCallback = CustomExceptionHandler;
 
-    // Patch Pretendo + RCE fix
+	// Patch Pretendo + RCE fix
         PatternManager pm;
         initPretendoPatches(pm);
-
         pm.Perform();
-
         enablePretendoPatches();
+
+    // Display OSD Message
+        OSD::Run(PretendoSplash);
+        Sleep(Seconds(15));
+        OSD::Stop(PretendoSplash);
+
 
 	//Run Menu Loop
 		menu->Run();
 		return 0;
 	}
 }
+
