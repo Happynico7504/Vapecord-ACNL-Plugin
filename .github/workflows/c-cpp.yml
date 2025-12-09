@@ -26,5 +26,4 @@ jobs:
       with:
         name: binary
         path: |
-              Vapecord-ACNL-Plugin.elf
               Vapecord-ACNL-Plugin.3gx
